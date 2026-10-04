@@ -1,6 +1,6 @@
 namespace Starship_Minii.Models;
 
-public class Starship : Baseship
+public class Starship : BaseShip
 {
     // --- Backing Fields ---
 
