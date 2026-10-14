@@ -131,4 +131,98 @@ public class MotherShip
             .Where(baseShip => baseShip.CrewMembers > limit)
             .ToList();
     }
+
+    public int CountCaptainOnly()
+    {
+        return BaseShips.Count(ship => ship.HasShipOnlyCaptain);
+    }
+
+    public bool AnyShipFull()
+    {
+        return BaseShips.Any(ship => ship.IsShipFull);
+    }
+    public bool AllHaveMinCrew(int min)
+    {
+        return BaseShips.All(ship => ship.CrewMembers >= min);
+    }
+
+    public int SmallestCrew()
+    {
+        return BaseShips.Min(ship => ship.CrewMembers);
+    }
+
+    public int LargestCrew()
+    {
+        return BaseShips.Max(ship => ship.CrewMembers);
+    }
+
+    public DateOnly OldestBuildDate()
+    {
+        return BaseShips.Min(ship => ship.BuildAt);
+    }
+
+    public IReadOnlyList<string> ShipNames()
+    {
+        return BaseShips.Select(ship => ship.Name).ToList();
+    }
+
+    public IReadOnlyList<BaseShip> BuiltAfter(DateOnly date)
+    {
+        return BaseShips.Where(ship => ship.BuildAt > date).ToList();
+    }
+
+    public IReadOnlyList<BaseShip> SortedByName()
+    {
+        return BaseShips.OrderBy(ship => ship.Name).ToList();
+    }
+
+    public bool IsDocked(string name)
+    {
+        return BaseShips.Any(ship => ship.Name == name);
+    }
+    
+    
+    // Ex 6 - Imperative
+    public int CountCaptainOnly_Imp()
+    {
+        int count = 0;
+
+        foreach (var ship in BaseShips)
+        {
+            if (ship.HasShipOnlyCaptain)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // Ex 7 - Imperative
+    public bool AnyShipFull_Imp()
+    {
+        foreach (var ship in BaseShips)
+        {
+            if (ship.IsShipFull)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Ex 12 - Imperative
+    public IReadOnlyList<string> ShipNames_Imp()
+    {
+        var names = new List<string>();
+
+        foreach (var ship in BaseShips)
+        {
+            names.Add(ship.Name);
+        }
+
+        return names;
+    }
+
 }
